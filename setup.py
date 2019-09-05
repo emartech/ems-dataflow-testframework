@@ -1,11 +1,13 @@
 import setuptools
 
+__version__="0.0.1"
+
 with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
 
 setuptools.setup(
     name="ems-dataflow-testframework",
-    version="0.0.1",
+    version=__version__,
     author="Emarsys",
     description="Framework helping testing Google Cloud Dataflows",
     long_description=LONG_DESCRIPTION,
@@ -16,5 +18,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires="=3.6.8",
+    python_requires="==3.6.8",
 )
