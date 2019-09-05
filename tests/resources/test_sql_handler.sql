@@ -1,0 +1,1 @@
+SELECT * FROM `{gcp_project_id}.{dataset_name}.{table_name}` WHERE (_PARTITIONTIME IS NULL OR _PARTITIONTIME = TIMESTAMP('{partition_time}')) AND ({filter})
