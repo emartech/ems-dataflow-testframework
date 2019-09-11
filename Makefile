@@ -1,16 +1,7 @@
 SHELL=/bin/bash
-.PHONY: test publish build check
-.DEFAULT_GOAL := build
+.PHONY: test check
 
-build: check test it-test ## Build package
-
-dist-build:
-	python setup.py sdist
-
-publish: dist-build ## Publish package to PyPi
-	twine upload dist/*
-
-test: ## Run all tests
+test: ## Run all unit tests
 	py.test -o python_files="test_*.py"
 
 check:
