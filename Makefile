@@ -4,5 +4,5 @@ SHELL=/bin/bash
 test: ## Run all unit tests
 	py.test -o python_files="test_*.py"
 
-check: ## Check code style
+check: ## Check codestyle
 	pylint --rcfile=.pylintrc --output-format=colorized setup.py
