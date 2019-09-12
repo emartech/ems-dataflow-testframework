@@ -44,6 +44,7 @@ Releasing is managed by [python-semantic-release](https://github.com/relekang/py
 
 If you are unsure how to write valid commit messages enforce yourself with using tools like [commitizen](https://github.com/commitizen/cz-cli).
  
+To trigger a release merge `master` branch into `release` and push it.
 
 License
 =======
