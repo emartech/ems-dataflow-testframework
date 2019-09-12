@@ -6,6 +6,4 @@ test: ## Run all unit tests
 
 check: ## Check code style
 	pylint --rcfile=.pylintrc --output-format=colorized \
-		setup.py \
-#		testframework \
-#		tests \
+		setup.py
