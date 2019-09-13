@@ -3,7 +3,7 @@ import logging
 
 from tenacity import retry, stop_after_attempt, wait_fixed
 
-from testframework import resource
+from testframework.checkers import resource
 
 
 class BigqueryChecker:
