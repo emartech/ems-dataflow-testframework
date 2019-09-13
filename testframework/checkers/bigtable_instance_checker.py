@@ -1,7 +1,6 @@
 import logging
 
 from google.cloud.bigtable.column_family import MaxAgeGCRule, GCRuleUnion
-from pytest import fixture
 
 
 class BigTableInstanceChecker():
@@ -71,10 +70,3 @@ class BigTableInstanceChecker():
 
     def __get_short_table_name(self, bigtable_table):
         return bigtable_table.name.split('/')[-1]
-
-
-@fixture(scope="function")
-def bigtable_instance_checker(request):
-    bt_instance, expected_tables_and_column_families = request.param
-    checker = BigTableInstanceChecker(bt_instance, expected_tables_and_column_families)
-    return checker

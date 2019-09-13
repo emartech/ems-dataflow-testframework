@@ -21,12 +21,10 @@ BIGTABLE_PROJECT_ID = get_bigtable_project_id()
 BACKUP_PROJECT_ID = get_gcp_backup_project_id()
 
 
-@pytest.fixture(scope="module")
 def publisher_client():
     return PublisherClient()
 
 
-@pytest.fixture(scope="module")
 def subscriber_client():
     return SubscriberClient()
 
@@ -39,38 +37,32 @@ def subscribe_to_topic(topic_name) -> PubsubTopicChecker:
     return checker
 
 
-@pytest.fixture(scope="module")
 def pubsub_publisher_for(topic_name: str) -> PubsubPublisher:
     return PubsubPublisher(publisher_client(), PROJECT_ID, topic_name)
 
 
-@pytest.fixture(scope="module")
 def bigquery_client():
     client = bigquery.Client(PROJECT_ID)
     logging.info("Bigquery project: {}".format(client.project))
     return client
 
 
-@pytest.fixture(scope="module")
 def bigquery_backup_client():
     client = bigquery.Client(BACKUP_PROJECT_ID)
     logging.info("Bigquery backup project: {}".format(client.project))
     return client
 
 
-@pytest.fixture(scope="module")
 def bigquery_checker():
     bigquery_helper = BigqueryHelper(bigquery_client())
     return BigqueryChecker(bigquery_helper, SqlHandler())
 
 
-@pytest.fixture(scope="module")
 def bigquery_table(dataset_name: str = None, table_name: str = None) -> BigqueryTableChecker:
     checker_message_factory = CheckerMessageFactory()
     return BigqueryTableChecker(bigquery_checker(), dataset_name, table_name, checker_message_factory)
 
 
-@pytest.fixture(scope="module")
 def bigquery_backup_table(dataset_name: str = None, table_name: str = None) -> BigqueryTableChecker:
     checker_message_factory = CheckerMessageFactory()
     bigquery_helper = BigqueryHelper(bigquery_backup_client())
@@ -78,7 +70,6 @@ def bigquery_backup_table(dataset_name: str = None, table_name: str = None) -> B
     return BigqueryTableChecker(bigquery_backup_checker, dataset_name, table_name, checker_message_factory)
 
 
-@pytest.fixture(scope="module")
 def bigquery_error_table(table_name: str = None):
     checker_message_factory = CheckerMessageFactory()
     bigquery_helper = BigqueryHelper(bigquery_client())
@@ -86,7 +77,6 @@ def bigquery_error_table(table_name: str = None):
     return BigqueryTableChecker(bigquery_error_checker, "dataflow_errors", table_name, checker_message_factory)
 
 
-@pytest.fixture(scope="module")
 def bigtable_table(table_name: str):
     bigtable_client = bigtable.Client(BIGTABLE_PROJECT_ID)
     instance = bigtable_client.instance(BIGTABLE_PROJECT_ID)
@@ -94,7 +84,6 @@ def bigtable_table(table_name: str):
     return BigtableChecker(table)
 
 
-@pytest.fixture(scope="module")
 def bt_table(request):
     bigtable_client = bigtable.Client(BIGTABLE_PROJECT_ID)
     instance = bigtable_client.instance(BIGTABLE_PROJECT_ID)
@@ -107,7 +96,6 @@ def bt_table(request):
     return table
 
 
-@pytest.fixture(scope="module")
 def bt_instance():
     bigtable_client = bigtable.Client(BIGTABLE_PROJECT_ID, admin=True)
     instance = bigtable_client.instance(BIGTABLE_PROJECT_ID)

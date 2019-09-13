@@ -24,6 +24,7 @@ setuptools.setup(
         "cachetools==3.1.1",
         "certifi==2019.6.16",
         "chardet==3.0.4",
+        "ems-gcp-toolkit==0.1.50",
         "google-api-core==1.14.2",
         "google-auth==1.6.3",
         "google-cloud-bigquery==1.19.0",
