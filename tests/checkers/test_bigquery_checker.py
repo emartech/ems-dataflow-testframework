@@ -93,17 +93,15 @@ class TestBigqueryChecker:
             }
 
             expected_sql_to_run = \
-                ("SELECT *\n" + \
-                 "FROM `{gcp_project_id}.{dataset_name}.{table_name}`\n" + \
-                 "WHERE\n" + \
-                 "  ({partition_filter})\n" + \
-                 "  AND ({filter})\n" + \
-                 "  AND ({where})\n").format(**{**params_for_query, **where_params})
+                ("SELECT * FROM `{gcp_project_id}.{dataset_name}.{table_name}` " + \
+                 "WHERE ({partition_filter}) " + \
+                 "AND ({filter}) " + \
+                 "AND ({where})").format(**{**params_for_query, **where_params})
 
             datetime.datetime.utcnow.assert_called_once()
             self.message_mock.get_unique_fields.assert_called_once()
             sql_handler_build_query.assert_has_calls(
-                [call(self.checker.path_to_query, {**params_for_query, **where_params})])
+                [call({**params_for_query, **where_params})])
             self.bq_helper_mock.execute_sync_query.assert_called_once_with(expected_sql_to_run)
 
     def test_get_messages_with_is_partitioned_false_query_executed_with_correctly_formatted_query(self):
@@ -129,8 +127,7 @@ class TestBigqueryChecker:
 
             datetime.datetime.utcnow.assert_not_called()
             self.message_mock.get_unique_fields.assert_called_once()
-            self.sql_handler_mock.build_query.assert_called_once_with(self.checker.path_to_query,
-                                                                      {**params_for_query, **where_params})
+            self.sql_handler_mock.build_query.assert_called_once_with({**params_for_query, **where_params})
             self.bq_helper_mock.execute_sync_query.assert_called_once_with("valid_query")
 
     def test_get_messages_with_is_partitioned_false_and_where_conditions_query_executed_with_correctly_formatted_query(
@@ -158,8 +155,7 @@ class TestBigqueryChecker:
 
             datetime.datetime.utcnow.assert_not_called()
             self.message_mock.get_unique_fields.assert_called_once()
-            self.sql_handler_mock.build_query.assert_called_once_with(self.checker.path_to_query,
-                                                                      {**params_for_query, **where_params})
+            self.sql_handler_mock.build_query.assert_called_once_with({**params_for_query, **where_params})
             self.bq_helper_mock.execute_sync_query.assert_called_once_with("valid_query")
 
     def test_get_messages_returns_rows(self):

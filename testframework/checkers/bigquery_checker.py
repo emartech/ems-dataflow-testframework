@@ -3,8 +3,6 @@ import logging
 
 from tenacity import retry, stop_after_attempt, wait_fixed
 
-from testframework.checkers import resource
-
 
 class BigqueryChecker:
 
@@ -12,7 +10,6 @@ class BigqueryChecker:
         self.__bq_helper = bq_helper
         self.__bq_client = bq_helper._bq_client
         self.__sql_handler = sql_handler
-        self.path_to_query = resource("get_message_from_bigquery.sql")
 
     @retry(stop=stop_after_attempt(20), wait=wait_fixed(10))
     def table_has_row_for(self, dataset_name, table_name, message, is_partitioned=True, where=None, check_loaded_at=True, loaded_at_field="loaded_at"):
@@ -58,7 +55,7 @@ class BigqueryChecker:
         params["partition_filter"] = self._get_partition_filter_sql(is_partitioned)
         params["where"] = loaded_at_check if where is None or where is False else where + " AND " + loaded_at_check
 
-        query = self.__sql_handler.build_query(self.path_to_query, {**config_fields, **params})
+        query = self.__sql_handler.build_query({**config_fields, **params})
 
         logging.debug("Query built: {}".format(query))
         logging.debug("Poll for query result has started.")
