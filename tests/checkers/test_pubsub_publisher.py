@@ -35,6 +35,14 @@ class TestPubsubPublisher:
         self.mock_message.get_message_as_json.assert_called_once()
         self.mock_publisher_client.publish.assert_called_once_with("projects/some_project/topics/valid_topic_name", self.message_in_json.encode("utf-8"))
 
+    def test_publish_stringMessagePublishedIntoTopic(self):
+        TEST_STRING_MESSAGE = "test string message"
+
+        publisher = PubsubPublisher(self.mock_publisher_client, "some_project", "valid_topic_name")
+        publisher.publish_string_message(TEST_STRING_MESSAGE)
+
+        self.mock_publisher_client.publish.assert_called_once_with("projects/some_project/topics/valid_topic_name", TEST_STRING_MESSAGE.encode("utf-8"))
+
     @patch('time.sleep', return_value=None)
     def test_publish_retriesOnErrorThreeTimes(self, patched_time_sleep):
         mock_future = Mock(Future)

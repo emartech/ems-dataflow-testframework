@@ -21,6 +21,10 @@ class PubsubPublisher:
         self.__publish_msg(msg.get_message_as_json())
         pass
 
+    def publish_string_message(self, msg: str) -> None:
+        self.__publish_msg(msg)
+        pass
+
     @retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
     def __publish_msg(self, msg: str) -> None:
         logging.debug("Publishing to topic: {}, message {}".format(self.__topic_path, msg))

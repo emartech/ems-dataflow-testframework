@@ -13,10 +13,8 @@ class PubsubMessage:
     def __str__(self):
         return self.__message_as_string
 
-
     def is_json(self):
         return self.__data is not None
-
 
     def has_key(self, key):
         return isinstance(self.__data, dict) and self.__data.has_key(key)
@@ -33,13 +31,11 @@ class PubsubMessage:
     def __getitem__(self, key):
         return isinstance(self.__data, dict) and self.__data[key]
 
-
     def __len__(self):
         if isinstance(self.__data, dict):
             return len(self.__data)
         else:
             return None
-
 
     def __load_as_json(self):
         try:
