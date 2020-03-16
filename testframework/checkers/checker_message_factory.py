@@ -41,7 +41,7 @@ class CheckerMessageFactory:
         )
         return backup_event
 
-    def get_event_as_error(self, original_event: CheckerMessage) -> CheckerMessage:
+    def get_event_as_error(self, original_event: CheckerMessage, id_field: str, id_value: str) -> CheckerMessage:
         error_event = CheckerMessage(
             {
                 "data": original_event.get_message_as_json(),
@@ -50,8 +50,8 @@ class CheckerMessageFactory:
                 "stacktrace": "",
                 "message": ""
             },
-            id_field="event_type",
-            id_value="WebextendEvent",
+            id_field=id_field,
+            id_value=id_value,
             randomized_fields=(),
             event_time_field="timestamp"
         )

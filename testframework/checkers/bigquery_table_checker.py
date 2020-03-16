@@ -57,8 +57,8 @@ class BigqueryTableChecker:
 
         return self.bigquery_checker.table_has_row_for(dataset_name, table_name, backup_event)
 
-    def has_error_row_for(self, event):
-        error_event = self.__checker_message_factory.get_event_as_error(event)
+    def has_error_row_for(self, event, event_type_field, event_type):
+        error_event = self.__checker_message_factory.get_event_as_error(event, event_type_field, event_type)
 
         regexp_template = ' AND REGEXP_CONTAINS(data, r".*{}.*")'
         filter_for_error_query = "TRUE "
