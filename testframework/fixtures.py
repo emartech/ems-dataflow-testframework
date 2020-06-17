@@ -13,6 +13,7 @@ from testframework.checkers.checker_message_factory import CheckerMessageFactory
 from testframework.checkers.pubsub_message_receiver import PubsubMessageReceiver
 from testframework.checkers.pubsub_publisher import PubsubPublisher
 from testframework.checkers.pubsub_topic_checker import PubsubTopicChecker
+from testframework.checkers.spanner_checker import SpannerChecker
 from testframework.config.environment import get_gcp_project_id, get_bigtable_project_id, get_gcp_backup_project_id
 from testframework.inserter.bigtable_inserter import BigtableInserter
 from testframework.util.sql_handler import SqlHandler
@@ -83,6 +84,10 @@ def bigtable_table(table_name: str):
     instance = bigtable_client.instance(BIGTABLE_PROJECT_ID)
     table = instance.table(table_name)
     return BigtableChecker(table)
+
+
+def spanner(project_id: str, instance_id: str, db_name: str):
+    return SpannerChecker(project_id, instance_id, db_name)
 
 
 def bigtable_table_inserter(table_name: str):

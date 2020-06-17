@@ -10,7 +10,7 @@ colorama==0.4.1
 commitizen==1.5.1
 decli==0.5.1
 docutils==0.15.2
-ems-gcp-toolkit==0.1.50
+ems-gcp-toolkit==0.1.73
 gitdb2==2.0.5
 GitPython==2.1.14
 google-api-core==1.14.2
