@@ -1,3 +1,4 @@
+import logging
 from collections import Generator
 from typing import Dict
 
@@ -13,6 +14,7 @@ class SpannerChecker:
         self._client = ems_spanner_client.EmsSpannerClient(project_id, instance_id, db_name)
 
     def execute_sql(self, query: str) -> Generator:
+        logging.info(f"Executing query: {query}")
         return self._client.execute_sql(query)
 
     def has_row_for(self, table_name: str, conditions: Dict):
