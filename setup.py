@@ -24,7 +24,7 @@ setuptools.setup(
         "cachetools==3.1.1",
         "certifi==2019.6.16",
         "chardet==3.0.4",
-        "ems-gcp-toolkit==0.1.71",
+        "ems-gcp-toolkit==0.1.73",
         "google-auth==1.6.3",
         "google-cloud-bigtable==1.0.0",
         "google-resumable-media==0.4.0",
