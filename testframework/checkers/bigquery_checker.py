@@ -16,7 +16,7 @@ class BigqueryChecker:
         is_found = self.message_found(dataset_name, table_name, message, is_partitioned, where, check_loaded_at, loaded_at_field)
 
         if is_found is False:
-            raise TimeoutError("Bigquery table row not found!")
+            raise TimeoutError("Bigquery table row not found.")
 
         return is_found
 
