@@ -17,6 +17,10 @@ class SpannerChecker:
         logging.info(f"Executing query: {query}")
         return self._client.execute_sql(query)
 
+    def execute_update(self, query: str):
+        logging.info(f"Executing update: {query}")
+        self._client.execute_update(query)
+
     def has_row_for(self, table_name: str, conditions: Dict):
         @retry(stop=stop_after_attempt(self.STOP_AFTER_ATTEMPT_SECS), wait=wait_fixed(self.WAIT_FIXED))
         def is_found(query: str):
