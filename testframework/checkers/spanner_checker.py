@@ -39,3 +39,4 @@ class SpannerChecker:
             normalized_conditions.append(f'{key} = {quoted_value}')
         where = ' AND '.join(normalized_conditions)
         return f'SELECT COUNT(*) FROM {table_name} WHERE {where}'
+
