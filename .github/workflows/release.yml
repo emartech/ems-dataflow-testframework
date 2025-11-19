@@ -1,0 +1,26 @@
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+      
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.6'
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt.ci
+      
+      - name: Release the package
+        run: |
+            git config --global user.email "semantic-release@github-actions"
+            git config --global user.name "semantic-release (via Github Actions)"
+            semantic-release publish
+            git checkout release && git pull origin release && git push origin release:master
