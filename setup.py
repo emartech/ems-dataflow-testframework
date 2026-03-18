@@ -25,7 +25,7 @@ setuptools.setup(
         "certifi==2019.6.16",
         "chardet==3.0.4",
         "ems-gcp-toolkit==0.1.76",
-        "google-auth==1.6.3",
+        "google-auth>=1.10.0,<2.0.0",
         "google-cloud-bigtable==1.0.0",
         "google-resumable-media==0.4.0",
         "grpcio==1.23.0",

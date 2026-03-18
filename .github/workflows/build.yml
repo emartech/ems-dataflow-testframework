@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+      
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.9.18'
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt.ci
+      
+      - name: Run code style check
+        run: make check
+      
+      - name: Run tests
+        run: make test

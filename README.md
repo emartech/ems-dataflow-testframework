@@ -1,3 +1,6 @@
+THIS PACKAGE IS DEPRECATED
+==========================
+
 ems-dataflow-testframework
 ==========================
 
