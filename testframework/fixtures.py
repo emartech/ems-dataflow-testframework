@@ -14,7 +14,7 @@ from testframework.checkers.pubsub_message_receiver import PubsubMessageReceiver
 from testframework.checkers.pubsub_publisher import PubsubPublisher
 from testframework.checkers.pubsub_topic_checker import PubsubTopicChecker
 from testframework.checkers.spanner_checker import SpannerChecker
-from testframework.config.environment import get_gcp_project_id, get_bigtable_project_id, get_gcp_backup_project_id
+from testframework.config.environment import get_gcp_project_id, get_bigtable_project_id, get_gcp_backup_project_id, get_credentials
 from testframework.inserter.bigtable_inserter import BigtableInserter
 from testframework.util.sql_handler import SqlHandler
 
@@ -24,11 +24,13 @@ BACKUP_PROJECT_ID = get_gcp_backup_project_id()
 
 
 def publisher_client():
-    return PublisherClient()
+    creds = get_credentials()
+    return PublisherClient(credentials=creds) if creds else PublisherClient()
 
 
 def subscriber_client():
-    return SubscriberClient()
+    creds = get_credentials()
+    return SubscriberClient(credentials=creds) if creds else SubscriberClient()
 
 
 def subscribe_to_topic(topic_name) -> PubsubTopicChecker:
@@ -44,13 +46,15 @@ def pubsub_publisher_for(topic_name: str) -> PubsubPublisher:
 
 
 def bigquery_client():
-    client = bigquery.Client(PROJECT_ID)
+    creds = get_credentials()
+    client = bigquery.Client(PROJECT_ID, credentials=creds) if creds else bigquery.Client(PROJECT_ID)
     logging.info("Bigquery project: {}".format(client.project))
     return client
 
 
 def bigquery_backup_client():
-    client = bigquery.Client(BACKUP_PROJECT_ID)
+    creds = get_credentials()
+    client = bigquery.Client(BACKUP_PROJECT_ID, credentials=creds) if creds else bigquery.Client(BACKUP_PROJECT_ID)
     logging.info("Bigquery backup project: {}".format(client.project))
     return client
 
@@ -80,7 +84,8 @@ def bigquery_error_table(table_name: str = None):
 
 
 def bigtable_table(table_name: str):
-    bigtable_client = bigtable.Client(BIGTABLE_PROJECT_ID)
+    creds = get_credentials()
+    bigtable_client = bigtable.Client(BIGTABLE_PROJECT_ID, credentials=creds) if creds else bigtable.Client(BIGTABLE_PROJECT_ID)
     instance = bigtable_client.instance(BIGTABLE_PROJECT_ID)
     table = instance.table(table_name)
     return BigtableChecker(table)
@@ -91,14 +96,16 @@ def spanner(project_id: str, instance_id: str, db_name: str):
 
 
 def bigtable_table_inserter(table_name: str):
-    bigtable_client = bigtable.Client(BIGTABLE_PROJECT_ID)
+    creds = get_credentials()
+    bigtable_client = bigtable.Client(BIGTABLE_PROJECT_ID, credentials=creds) if creds else bigtable.Client(BIGTABLE_PROJECT_ID)
     instance = bigtable_client.instance(BIGTABLE_PROJECT_ID)
     table = instance.table(table_name)
     return BigtableInserter(table)
 
 
 def bt_table(request):
-    bigtable_client = bigtable.Client(BIGTABLE_PROJECT_ID)
+    creds = get_credentials()
+    bigtable_client = bigtable.Client(BIGTABLE_PROJECT_ID, credentials=creds) if creds else bigtable.Client(BIGTABLE_PROJECT_ID)
     instance = bigtable_client.instance(BIGTABLE_PROJECT_ID)
     try:
         BIGTABLE_TABLE_NAME = request.param
@@ -110,7 +117,8 @@ def bt_table(request):
 
 
 def bt_instance():
-    bigtable_client = bigtable.Client(BIGTABLE_PROJECT_ID, admin=True)
+    creds = get_credentials()
+    bigtable_client = bigtable.Client(BIGTABLE_PROJECT_ID, credentials=creds, admin=True) if creds else bigtable.Client(BIGTABLE_PROJECT_ID, admin=True)
     instance = bigtable_client.instance(BIGTABLE_PROJECT_ID)
     return instance
 
