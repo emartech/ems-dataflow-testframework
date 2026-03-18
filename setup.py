@@ -1,6 +1,6 @@
 import setuptools
 
-__version__ = "1.2.5"
+__version__ = "1.3.0"
 
 with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
@@ -28,7 +28,7 @@ setuptools.setup(
         "google-auth>=1.10.0,<2.0.0",
         "google-cloud-bigtable==1.0.0",
         "google-resumable-media==0.4.0",
-        "grpcio==1.23.0",
+        "grpcio>=1.34.0",
         "idna==2.8",
         "importlib-metadata==0.21",
         "inflection==0.3.1",

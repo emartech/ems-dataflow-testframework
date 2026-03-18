@@ -14,7 +14,7 @@ ems-gcp-toolkit==0.1.76
 gitdb2==2.0.5
 GitPython==2.1.14
 google-api-core==1.14.2
-google-auth==1.10.0
+google-auth>=1.10.0,<2.0.0
 google-cloud-bigquery==1.19.0
 google-cloud-bigtable==1.0.0
 google-cloud-core==1.0.3
