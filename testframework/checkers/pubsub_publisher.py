@@ -13,7 +13,7 @@ class PubsubPublisher:
         self.__publisher = pubsub_client
         self.__topic_path = self.__publisher.topic_path(project_id, input_topic_name)
         try:
-            self.__publisher.get_topic(self.__topic_path)
+            self.__publisher.get_topic(request={"topic": self.__topic_path})
         except NotFound as e:
             raise AssertionError(e)
 

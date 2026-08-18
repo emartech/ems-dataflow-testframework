@@ -66,7 +66,7 @@ class PubsubTopicChecker:
 
     @retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
     def __create_subscription(self):
-        self.__subscriber.create_subscription(self.__subscription_path(), self.__topic_path, ack_deadline_seconds=60)
+        self.__subscriber.create_subscription(request={"name": self.__subscription_path(), "topic": self.__topic_path, "ack_deadline_seconds": 60})
 
     def __subscription_path(self):
         return self.__subscriber.subscription_path(self.__project_id, self.__subscription_name)
