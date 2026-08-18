@@ -1,5 +1,5 @@
 import logging
-from collections import Generator
+from collections.abc import Generator
 from typing import Dict
 
 from spanner import ems_spanner_client

@@ -1,6 +1,6 @@
 import setuptools
 
-__version__ = "1.3.2"
+__version__ = "1.4.0"
 
 with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
@@ -19,35 +19,20 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        "atomicwrites==1.3.0",
-        "attrs==19.1.0",
-        "cachetools==3.1.1",
-        "certifi==2019.6.16",
-        "chardet==3.0.4",
-        "ems-gcp-toolkit==0.1.76",
-        "google-auth>=1.10.0,<2.0.0",
-        "google-cloud-bigtable==1.0.0",
-        "google-resumable-media==0.4.0",
-        "grpcio>=1.34.0",
-        "idna==2.8",
-        "importlib-metadata==0.21",
-        "inflection==0.3.1",
-        "more-itertools==7.2.0",
-        "packaging==19.1",
-        "pluggy==0.13.0",
-        "protobuf==3.9.1",
-        "py==1.8.0",
-        "pyasn1==0.4.7",
-        "pyasn1-modules==0.2.6",
-        "pyparsing==2.4.2",
-        "pytest==5.1.2",
-        "pytz==2019.2",
-        "requests==2.22.0",
-        "rsa==4.0",
-        "six==1.12.0",
-        "tenacity==5.1.1",
-        "urllib3==1.25.3",
-        "wcwidth==0.1.7",
-        "zipp==0.6.0"
+        "attrs>=23.1.0",
+        "cachetools>=5.3.0",
+        "ems-gcp-toolkit==0.2.2",
+        "google-auth>=2.0.0",
+        "google-cloud-bigtable>=2.0.0",
+        "grpcio>=1.59.0",
+        "inflection>=0.5.1",
+        "packaging>=23.0",
+        "pluggy>=1.0.0",
+        "protobuf>=4.25.0",
+        "pytest>=7.0.0",
+        "pytz>=2023.3",
+        "requests>=2.31.0",
+        "six>=1.16.0",
+        "tenacity>=8.2.0",
     ]
 )
