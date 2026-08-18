@@ -30,7 +30,7 @@ class PubsubCreator:
     def create_subscription(self, topic_name: str, subscription_path: str):
         topic_path = self.topic_path(topic_name)
         try:
-            self.__subscriber_client.create_subscription(subscription_path, topic_path, ack_deadline_seconds=60)
+            self.__subscriber_client.create_subscription(request={"name": subscription_path, "topic": topic_path, "ack_deadline_seconds": 60})
         except AlreadyExists:
             pass
         except GoogleAPICallError as e:

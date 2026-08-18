@@ -27,7 +27,7 @@ class PubsubMessageReceiver:
                 messages_received.append(msg_received)
 
             if len(ack_ids) != 0:
-                self.__subscriber_client.acknowledge(subscription_path, ack_ids)
+                self.__subscriber_client.acknowledge(request={"subscription": subscription_path, "ack_ids": ack_ids})
 
             for message in messages_received:
                 yield message
@@ -37,4 +37,4 @@ class PubsubMessageReceiver:
     @retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
     def __pull(self, subscription_path: str):
         logging.debug("Pulling from subscription: {}".format(subscription_path))
-        return self.__subscriber_client.pull(subscription_path, max_messages=self.__batch_size, return_immediately=True)
+        return self.__subscriber_client.pull(request={"subscription": subscription_path, "max_messages": self.__batch_size, "return_immediately": True})

@@ -26,7 +26,7 @@ class PubsubTopicChecker:
 
     @retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
     def close(self):
-        self.__subscriber.delete_subscription(self.__subscription_path())
+        self.__subscriber.delete_subscription(request={"subscription": self.__subscription_path()})
 
     def received_matching(self, matcher: AbstractPubsubMessageMatcher, timeout_seconds=90):
         json_messages = self.__receiver.receive(self.__subscription_path(), timeout_seconds)

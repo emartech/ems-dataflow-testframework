@@ -20,7 +20,7 @@ class PubsubChecker:
     def topic_exists(self, topic_name: str):
         topic_path = self.topic_path(topic_name)
         try:
-            topic = self.__publisher_client.get_topic(topic_path)
+            topic = self.__publisher_client.get_topic(request={"topic": topic_path})
             return topic is not None
         except NotFound:
             return False
