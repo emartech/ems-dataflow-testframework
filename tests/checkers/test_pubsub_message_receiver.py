@@ -6,7 +6,6 @@ from unittest.mock import Mock, call
 import time
 
 from google.cloud.pubsub import SubscriberClient
-from google.cloud.pubsub_v1.proto.pubsub_pb2 import PullResponse
 
 from testframework.checkers.pubsub_message_receiver import PubsubMessageReceiver
 
@@ -17,7 +16,7 @@ class TestPubsubMessageReceiver:
         self.time_mock.time.side_effect = [0, 10, 31]
         self.mock_subscriber_client = Mock(SubscriberClient)
         self.subscription_path = "projects/some_project/subscriptions/some_subscription"
-        self.mock_subscriber_client.pull.return_value = Mock(PullResponse)
+        self.mock_subscriber_client.pull.return_value = Mock()
 
     def test_receive_subscriptionIsEmpty_returnsEmptyMessagesList(self):
         self.__set_pull_return_value([])
@@ -42,8 +41,8 @@ class TestPubsubMessageReceiver:
         message_generator = receiver.receive(self.subscription_path)
         messages = [next(message_generator)]
 
-        self.mock_subscriber_client.pull.assert_called_once_with(self.subscription_path, max_messages=1000, return_immediately=True)
-        self.mock_subscriber_client.acknowledge.assert_called_once_with(self.subscription_path, [ack_id])
+        self.mock_subscriber_client.pull.assert_called_once_with(request={"subscription": self.subscription_path, "max_messages": 1000, "return_immediately": True})
+        self.mock_subscriber_client.acknowledge.assert_called_once_with(request={"subscription": self.subscription_path, "ack_ids": [ack_id]})
 
         self.time_mock.sleep.assert_not_called()
 
@@ -88,7 +87,8 @@ class TestPubsubMessageReceiver:
             message_generator = receiver.receive(self.subscription_path)
             next(message_generator)
 
-        calls = [call(self.subscription_path, max_messages=1000, return_immediately=True)] * 3
+        expected_call = call(request={"subscription": self.subscription_path, "max_messages": 1000, "return_immediately": True})
+        calls = [expected_call] * 3
         self.mock_subscriber_client.pull.assert_has_calls(calls)
 
     def test_receive_pulledCalledWhileTimeoutIsNotExceeded_returnsMessagesList(self):
@@ -110,7 +110,8 @@ class TestPubsubMessageReceiver:
 
         messages = list(message_generator)
 
-        calls = [call(self.subscription_path, max_messages=batch_size, return_immediately=True)] * 2
+        expected_call = call(request={"subscription": self.subscription_path, "max_messages": batch_size, "return_immediately": True})
+        calls = [expected_call] * 2
         self.mock_subscriber_client.pull.assert_has_calls(calls)
         calls_for_sleep = [call(sleep_seconds)] * 2
         self.time_mock.sleep.assert_has_calls(calls_for_sleep)

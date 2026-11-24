@@ -43,14 +43,14 @@ class TestPubsubCreator:
 
     def test_create_subscription_creates_a_subscription(self):
         self.__creator.create_subscription("some_topic", "projects/some_project/subscriptions/some_subscription")
-        self.__mock_subscriber_client.create_subscription.assert_called_with("projects/some_project/subscriptions/some_subscription",
-                                                                             "projects/some_project/topics/some_topic",
-                                                                             ack_deadline_seconds=60)
+        self.__mock_subscriber_client.create_subscription.assert_called_with(request={"name": "projects/some_project/subscriptions/some_subscription",
+                                                                                      "topic": "projects/some_project/topics/some_topic",
+                                                                                      "ack_deadline_seconds": 60})
 
     def test_create_subscription_consumes_error_if_subscription_already_exists(self):
         self.__mock_subscriber_client.create_subscription.side_effect = AlreadyExists("Already exists.")
 
         self.__creator.create_subscription("some_topic", "projects/some_project/subscriptions/some_subscription")
-        self.__mock_subscriber_client.create_subscription.assert_called_with("projects/some_project/subscriptions/some_subscription",
-                                                                             "projects/some_project/topics/some_topic",
-                                                                             ack_deadline_seconds=60)
+        self.__mock_subscriber_client.create_subscription.assert_called_with(request={"name": "projects/some_project/subscriptions/some_subscription",
+                                                                                      "topic": "projects/some_project/topics/some_topic",
+                                                                                      "ack_deadline_seconds": 60})
