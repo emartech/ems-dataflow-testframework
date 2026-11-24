@@ -33,7 +33,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PYPI_USERNAME: __token__
-          PYPI_PASSWORD: ${{ secrets.PYPI_PUBLISHER }}
+          PYPI_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
             git config --global user.email "semantic-release@github-actions"
             git config --global user.name "semantic-release (via Github Actions)"
