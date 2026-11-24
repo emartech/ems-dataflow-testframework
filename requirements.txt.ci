@@ -3,7 +3,9 @@ ems-gcp-toolkit==0.2.2
 google-auth>=2.0.0
 google-cloud-bigquery>=3.0.0
 google-cloud-bigtable>=2.0.0
+google-cloud-pubsub>=2.0.0
 grpcio>=1.59.0
+inflection>=0.5.1
 isort==5.13.2
 mccabe==0.7.0
 protobuf>=4.25.0
